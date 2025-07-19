@@ -1,0 +1,103 @@
+name: Manage System 
+
+on:
+  push:
+    branches: 
+      - dev/**
+
+permissions:
+  contents: read
+
+jobs:
+  php-dev:
+    #Php
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
+    # Set up PHP
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+        extensions: mbstring, intl, json, curl, pdo, dom, xml, openssl
+    
+    #Composer
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+    
+    #Clean up previous Docker containers
+    - name: Docker Compose Down (limpieza previa)
+      run: docker compose down -v --remove-orphans || true
+    
+    #Docker
+    - name: Set Up Docker compose
+      run:  docker compose up -d --build    
+    
+    #Instalacion dependencias
+    - name: Install dependencies
+      run: composer install --no-interaction --prefer-dist --no-progress --optimize-autoloader
+
+    #Test
+    - name: Run test suite
+      run: docker exec backend composer tests
+    
+    #Run coverage
+   # - name: Run coverage
+    #  run: php -d xdebug.mode=coverage vendor/bin/phpunit --coverage-html html-coverage
+    
+    #Upload coverage report
+   # - name: Upload coverage report
+    #  uses: actions/upload-artifact@v4
+     # with:
+      #    name: php-report
+       #   path: html-coverage/
+  azureboard:
+    runs-on: ubuntu-latest
+    steps:
+    #obteniendo el commit
+      - name: Obtener mensaje del commit
+        id: obtener-msg
+        run: |
+          echo "COMMIT_MSG=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
+
+      - name: Extraer ID del Work Item (formato AB#1234)
+        id: extraer-id
+        run: |
+            ID=$(echo "$COMMIT_MSG" | grep -o 'AB#[0-9]*' | grep -o '[0-9]*' || true)
+            echo "WORK_ITEM_ID=$ID" >> $GITHUB_ENV
+            echo "Detectado WORK_ITEM_ID=$ID"
+    
+    #Azure DevOps
+      - name: Actualizar Azure Board
+        if: env.WORK_ITEM_ID != ''
+        env:
+          AZDO_ORG: CodeRenzo
+          AZDO_PROJECT: SistemaAdministrable
+          AZDO_PAT: ${{ secrets.AZDO_PAT }}
+        run: |
+          curl --request PATCH \
+            --url https://dev.azure.com/$AZDO_ORG/$AZDO_PROJECT/_apis/wit/workitems/$WORK_ITEM_ID?api-version=6.0 \
+            --header "Content-Type: application/json-patch+json" \
+            --user :$AZDO_PAT \
+            --data '[{ "op": "add", "path": "/fields/System.State", "value": "Done" }]'
+      
+  sonarqube:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SonarQube
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
