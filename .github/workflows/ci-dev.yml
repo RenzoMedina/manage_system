@@ -63,7 +63,10 @@ jobs:
     - name: Install dependencies
       working-directory: ./backend
       run: composer install --no-interaction --prefer-dist --no-progress --optimize-autoloader
-
+            
+    - name: Validar base de datos y usuario
+      run: |
+        docker exec db_sa mysql -u db_admin -pdb_user -e "USE sistema_administrable; SELECT COUNT(*) FROM users;"
     #Test
     - name: Run test suite
       working-directory: ./backend
