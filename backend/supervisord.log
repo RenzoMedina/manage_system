@@ -1,0 +1,70 @@
+2025-07-19 01:53:24,779 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-07-19 01:53:24,787 INFO supervisord started with pid 1
+2025-07-19 01:53:25,791 INFO spawned: 'nginx' with pid 8
+2025-07-19 01:53:25,796 INFO spawned: 'php-fpm' with pid 9
+2025-07-19 01:53:26,941 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-19 01:53:26,941 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-19 02:14:35,187 WARN received SIGQUIT indicating exit request
+2025-07-19 02:14:35,205 INFO waiting for nginx, php-fpm to die
+2025-07-19 02:14:35,239 INFO stopped: php-fpm (exit status 0)
+2025-07-19 02:14:35,286 INFO stopped: nginx (exit status 0)
+2025-07-19 02:31:09,019 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-07-19 02:31:09,030 INFO supervisord started with pid 1
+2025-07-19 02:31:10,034 INFO spawned: 'nginx' with pid 7
+2025-07-19 02:31:10,037 INFO spawned: 'php-fpm' with pid 8
+2025-07-19 02:31:11,168 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-19 02:31:11,169 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-19 02:34:12,210 INFO reaped unknown pid 46 (exit status 0)
+2025-07-19 02:43:16,604 INFO reaped unknown pid 65 (exit status 0)
+2025-07-19 02:43:50,654 INFO reaped unknown pid 84 (exit status 0)
+2025-07-19 02:44:14,663 INFO reaped unknown pid 103 (exit status 0)
+2025-07-19 02:44:36,674 INFO reaped unknown pid 139 (exit status 0)
+2025-07-19 02:45:01,711 INFO reaped unknown pid 158 (exit status 0)
+2025-07-19 02:51:03,960 INFO reaped unknown pid 177 (exit status 0)
+2025-07-19 03:01:52,469 INFO reaped unknown pid 196 (exit status 0)
+2025-07-19 03:02:28,499 INFO reaped unknown pid 215 (exit status 0)
+2025-07-19 03:03:08,517 INFO reaped unknown pid 234 (exit status 0)
+2025-07-19 03:04:19,522 INFO reaped unknown pid 253 (exit status 0)
+2025-07-19 03:05:03,424 INFO reaped unknown pid 272 (exit status 0)
+2025-07-19 03:06:25,480 INFO reaped unknown pid 291 (exit status 0)
+2025-07-19 03:07:06,520 INFO reaped unknown pid 312 (exit status 0)
+2025-07-19 03:07:15,941 INFO reaped unknown pid 326 (exit status 0)
+2025-07-19 03:07:27,162 INFO reaped unknown pid 340 (exit status 0)
+2025-07-19 03:10:04,269 WARN received SIGQUIT indicating exit request
+2025-07-19 03:10:04,272 INFO waiting for nginx, php-fpm to die
+2025-07-19 03:10:04,292 INFO stopped: php-fpm (exit status 0)
+2025-07-19 03:10:04,378 INFO stopped: nginx (exit status 0)
+2025-07-19 03:15:55,384 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-07-19 03:15:55,389 INFO supervisord started with pid 1
+2025-07-19 03:15:56,414 INFO spawned: 'nginx' with pid 7
+2025-07-19 03:15:56,418 INFO spawned: 'php-fpm' with pid 8
+2025-07-19 03:15:57,567 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-19 03:15:57,568 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-19 03:16:30,323 INFO reaped unknown pid 29 (exit status 0)
+2025-07-19 03:16:49,011 INFO reaped unknown pid 48 (exit status 0)
+2025-07-19 03:17:53,532 INFO reaped unknown pid 67 (exit status 0)
+2025-07-19 03:19:35,708 INFO reaped unknown pid 86 (exit status 0)
+2025-07-19 03:21:24,670 INFO reaped unknown pid 105 (exit status 0)
+2025-07-19 03:50:49,304 INFO reaped unknown pid 124 (exit status 0)
+2025-07-19 03:51:22,337 INFO reaped unknown pid 143 (exit status 0)
+2025-07-19 03:53:50,476 INFO reaped unknown pid 162 (exit status 0)
+2025-07-19 03:56:46,641 INFO reaped unknown pid 181 (exit status 0)
+2025-07-19 03:57:08,676 INFO reaped unknown pid 200 (exit status 0)
+2025-07-19 03:58:34,751 INFO reaped unknown pid 219 (exit status 0)
+2025-07-19 04:00:28,862 INFO reaped unknown pid 238 (exit status 0)
+2025-07-19 04:00:44,871 INFO reaped unknown pid 257 (exit status 0)
+2025-07-19 04:01:32,908 INFO reaped unknown pid 293 (exit status 0)
+2025-07-19 04:02:50,013 INFO reaped unknown pid 312 (exit status 0)
+2025-07-19 04:03:30,054 INFO reaped unknown pid 331 (exit status 0)
+2025-07-19 04:04:19,097 INFO reaped unknown pid 367 (exit status 0)
+2025-07-19 04:06:03,202 INFO reaped unknown pid 414 (exit status 0)
+2025-07-19 04:06:36,234 INFO reaped unknown pid 433 (exit status 0)
+2025-07-19 04:08:52,369 INFO reaped unknown pid 470 (exit status 0)
+2025-07-19 04:11:39,526 INFO reaped unknown pid 489 (exit status 0)
+2025-07-19 04:12:27,581 INFO reaped unknown pid 508 (exit status 0)
+2025-07-19 04:13:35,521 INFO reaped unknown pid 527 (exit status 0)
+2025-07-19 04:16:09,674 INFO reaped unknown pid 546 (exit status 0)
+2025-07-19 04:18:34,813 WARN received SIGQUIT indicating exit request
+2025-07-19 04:18:34,818 INFO waiting for nginx, php-fpm to die
+2025-07-19 04:18:34,851 INFO stopped: php-fpm (exit status 0)
+2025-07-19 04:18:34,906 INFO stopped: nginx (exit status 0)

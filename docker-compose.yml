@@ -1,0 +1,31 @@
+services:
+  app:
+    build: ./backend
+    container_name: backend
+    volumes:
+      - ./backend:/var/www/api
+    ports:
+      - 8080:80
+    env_file:
+      - ./backend/.env
+    networks:
+     - net-back
+    depends_on:
+    - database
+  
+  database:
+    container_name: db_sa
+    image: mysql:8.0.13
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sistema_administrable
+      MYSQL_USER: db_admin
+      MYSQL_PASSWORD: db_user
+    volumes:
+      - ./vmData:/var/lib/mysql
+      - ./database/db.sql:/docker-entrypoint-initdb.d/db.sql
+    networks:
+    - mynetapi

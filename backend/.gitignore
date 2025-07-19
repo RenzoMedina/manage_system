@@ -1,0 +1,8 @@
+.env
+.env.testing
+### Composer ###
+composer.phar
+/vendor/
+
+# PHPUnit
+.phpunit.cache
