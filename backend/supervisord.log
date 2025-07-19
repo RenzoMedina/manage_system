@@ -75,3 +75,35 @@
 2025-07-19 16:23:30,519 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2025-07-19 16:23:30,519 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2025-07-19 16:30:07,998 INFO reaped unknown pid 29 (exit status 0)
+2025-07-19 17:33:10,455 WARN received SIGQUIT indicating exit request
+2025-07-19 17:33:10,467 INFO waiting for nginx, php-fpm to die
+2025-07-19 17:33:10,550 INFO stopped: php-fpm (exit status 0)
+2025-07-19 17:33:10,630 INFO stopped: nginx (exit status 0)
+2025-07-19 17:42:47,025 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-07-19 17:42:47,034 INFO supervisord started with pid 1
+2025-07-19 17:42:48,037 INFO spawned: 'nginx' with pid 7
+2025-07-19 17:42:48,043 INFO spawned: 'php-fpm' with pid 8
+2025-07-19 17:42:49,280 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-19 17:42:49,280 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-19 17:49:46,293 INFO reaped unknown pid 29 (exit status 0)
+2025-07-19 17:50:38,288 INFO reaped unknown pid 48 (exit status 0)
+2025-07-19 19:33:25,363 WARN received SIGQUIT indicating exit request
+2025-07-19 19:33:25,365 INFO waiting for nginx, php-fpm to die
+2025-07-19 19:33:25,401 INFO stopped: php-fpm (exit status 0)
+2025-07-19 19:33:25,458 INFO stopped: nginx (exit status 0)
+2025-07-19 19:34:51,848 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-07-19 19:34:51,853 INFO supervisord started with pid 1
+2025-07-19 19:34:52,865 INFO spawned: 'nginx' with pid 8
+2025-07-19 19:34:52,867 INFO spawned: 'php-fpm' with pid 9
+2025-07-19 19:34:53,939 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-19 19:34:53,939 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-19 19:59:47,244 INFO reaped unknown pid 30 (exit status 0)
+2025-07-19 20:04:42,038 INFO reaped unknown pid 49 (exit status 0)
+2025-07-19 20:05:37,836 INFO reaped unknown pid 68 (exit status 0)
+2025-07-19 20:06:40,238 INFO reaped unknown pid 87 (exit status 0)
+2025-07-19 20:07:14,598 INFO reaped unknown pid 106 (exit status 0)
+2025-07-19 20:07:25,677 INFO reaped unknown pid 125 (exit status 0)
+2025-07-19 20:08:32,978 INFO reaped unknown pid 144 (exit status 0)
+2025-07-19 20:08:48,091 INFO reaped unknown pid 163 (exit status 0)
+2025-07-19 20:08:56,529 INFO reaped unknown pid 182 (exit status 0)
+2025-07-19 20:09:04,509 INFO reaped unknown pid 201 (exit status 0)
