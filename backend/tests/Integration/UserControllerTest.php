@@ -11,10 +11,8 @@ class UserControllerTest extends TestCase{
     #[Test]
     #[TestDox("Return status with login User")]
     public function testLoginUser(){
-        //$env_testing = "http://app";
-        $host = /* $env_testing ?? */ 'http://localhost:8080';
         $client = new Client([
-            'base_uri'=>$host,
+            'base_uri'=>'http://app',
             'timeout' => 5.0
         ]);
 
