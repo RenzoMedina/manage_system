@@ -25,10 +25,13 @@ services:
       MYSQL_USER: db_admin
       MYSQL_PASSWORD: db_user
     volumes:
-      - ./vmData:/var/lib/mysql
+      - vmData:/var/lib/mysql
       - ./database/db.sql:/docker-entrypoint-initdb.d/db.sql
     networks:
       - net-back
+
+volumes:
+  vmData:
 
 networks:
   net-back:

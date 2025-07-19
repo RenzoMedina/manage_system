@@ -75,3 +75,7 @@
 2025-07-19 16:23:30,519 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2025-07-19 16:23:30,519 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2025-07-19 16:30:07,998 INFO reaped unknown pid 29 (exit status 0)
+2025-07-19 17:33:10,455 WARN received SIGQUIT indicating exit request
+2025-07-19 17:33:10,467 INFO waiting for nginx, php-fpm to die
+2025-07-19 17:33:10,550 INFO stopped: php-fpm (exit status 0)
+2025-07-19 17:33:10,630 INFO stopped: nginx (exit status 0)
