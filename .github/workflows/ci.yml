@@ -48,7 +48,10 @@ jobs:
         echo "DBHOST=db_sa" >> backend/.env
         echo "DBUSER=db_admin" >> backend/.env
         echo "DBPASS=db_user" >> backend/.env
-    #Docker
+    #Create Docker network
+    - name: Crear red Docker externa
+      run: docker network create net-back || true
+     #Docker
     - name: Set Up Docker compose
       working-directory: ./backend
       run:  docker compose up -d --build    
