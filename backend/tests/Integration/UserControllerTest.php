@@ -35,7 +35,7 @@ class UserControllerTest extends TestCase{
 
         $this->assertEquals(200, $getRes->getStatusCode());
         $this->assertJson($body);
-        //var_dump($body);
+        var_dump($body);
         $this->assertEquals(200, $authResponse->getStatusCode());
     }
 }
