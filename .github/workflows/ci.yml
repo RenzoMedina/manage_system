@@ -39,6 +39,15 @@ jobs:
     - name: Docker Compose Down (limpieza previa)
       run: docker compose down -v --remove-orphans || true
     
+    #Create .env file
+    - name: Create .env file
+      run: |
+        echo "TOKEN=sistema_administrable" >> backend/.env
+        echo "DBNAME=sistema_administrable" >> backend/.env
+        echo "WDBTYPE=mysql" >> backend/.env
+        echo "DBHOST=db_sa" >> backend/.env
+        echo "DBUSER=db_admin" >> backend/.env
+        echo "DBPASS=db_user" >> backend/.env
     #Docker
     - name: Set Up Docker compose
       working-directory: ./backend
