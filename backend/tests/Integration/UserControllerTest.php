@@ -15,7 +15,6 @@ class UserControllerTest extends TestCase{
             'base_uri'=>'http://app',
             'timeout' => 5.0
         ]);
-
         $authResponse = $client->post('/login',[
             'json'=>[
                 "name" => "Admin",
@@ -24,8 +23,19 @@ class UserControllerTest extends TestCase{
         ]);
         $autData = json_decode($authResponse->getBody(), true);
         $token = $autData['token'] ?? null ;
-        var_dump($token);
         $this->assertNotNull($token, "No token was received");
+        
+        $getRes = $client->get('/api/v1/user',[
+                'headers' => [
+                'Authorization' => 'Bearer ' . $token,
+                'Accept'        => 'application/json',
+                     ]
+        ]);
+        $body = json_encode($getRes->getBody()->getContents(), true);
+
+        $this->assertEquals(200, $getRes->getStatusCode());
+        $this->assertJson($body);
+        //var_dump($body);
         $this->assertEquals(200, $authResponse->getStatusCode());
     }
 }
