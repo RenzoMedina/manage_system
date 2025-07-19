@@ -4,14 +4,25 @@ on:
   push:
     branches: 
       - dev/**
+    # Only run on changes to backend or frontend directories
+    paths:
+      - 'backend/**'
+      - 'frontend/**'
+  pull_request:
+    branches: 
+      - dev/**
+    paths:
+        - 'backend/**'
+        - 'frontend/**'
 
 permissions:
   contents: read
 
 jobs:
-  php-dev:
-    #Php
+  backend:
+    name: Build & Test Backend
     runs-on: ubuntu-latest
+    if: ${{ contains(github.event.head_commit.message, 'backend') }}
     steps:
     - uses: actions/checkout@v4
 
@@ -79,8 +90,48 @@ jobs:
      # with:
       #    name: php-report
        #   path: html-coverage/
-  azureboard:
-    needs: php-dev
+  azureboard-backend:
+    needs: backend
+    runs-on: ubuntu-latest
+    steps:
+    #obteniendo el commit
+      - name: Obtener mensaje del commit
+        id: obtener-msg
+        run: |
+          echo "COMMIT_MSG=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
+
+      - name: Extraer ID del Work Item (formato AB#1234)
+        id: extraer-id
+        run: |
+            ID=$(echo "$COMMIT_MSG" | grep -o 'AB#[0-9]*' | grep -o '[0-9]*' || true)
+            echo "WORK_ITEM_ID=$ID" >> $GITHUB_ENV
+            echo "Detectado WORK_ITEM_ID=$ID"
+    
+    #Azure DevOps
+      - name: Actualizar Azure Board
+        if: env.WORK_ITEM_ID != ''
+        env:
+          AZDO_ORG: CodeRenzo
+          AZDO_PROJECT: SistemaAdministrable
+          AZDO_PAT: ${{ secrets.AZDO_PAT }}
+        run: |
+          curl --request PATCH \
+            --url https://dev.azure.com/$AZDO_ORG/$AZDO_PROJECT/_apis/wit/workitems/$WORK_ITEM_ID?api-version=6.0 \
+            --header "Content-Type: application/json-patch+json" \
+            --user :$AZDO_PAT \
+            --data '[{ "op": "add", "path": "/fields/System.State", "value": "Done" }]'
+
+  frontend:
+    name: Build Frontend
+    runs-on: ubuntu-latest
+    if: ${{ contains(github.event.head_commit.message, 'frontend') }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Frontend
+        run: echo "Compilando frontend..."
+    
+  azureboard-frontend:
+    needs: frontend
     runs-on: ubuntu-latest
     steps:
     #obteniendo el commit

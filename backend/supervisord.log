@@ -107,3 +107,7 @@
 2025-07-19 20:08:48,091 INFO reaped unknown pid 163 (exit status 0)
 2025-07-19 20:08:56,529 INFO reaped unknown pid 182 (exit status 0)
 2025-07-19 20:09:04,509 INFO reaped unknown pid 201 (exit status 0)
+2025-07-19 20:45:56,689 WARN received SIGQUIT indicating exit request
+2025-07-19 20:45:56,697 INFO waiting for nginx, php-fpm to die
+2025-07-19 20:45:56,749 INFO stopped: php-fpm (exit status 0)
+2025-07-19 20:45:56,803 INFO stopped: nginx (exit status 0)
