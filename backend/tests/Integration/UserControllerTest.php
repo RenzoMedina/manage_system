@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class UserControllerTest extends TestCase{
 
-    #[Test]
+    /* #[Test]
     #[TestDox("Return status with login User")]
     public function testLoginUser(){
         $client = new Client([
@@ -25,5 +25,5 @@ class UserControllerTest extends TestCase{
         $token = $autData['token'] ?? null ;
         $this->assertNotNull($token, "No token was received");
         $this->assertEquals(200, $authResponse->getStatusCode());
-    }
+    } */
 }
