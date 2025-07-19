@@ -35,7 +35,9 @@ jobs:
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-php-
-
+    #Docker
+    - name: Set Up Docker compose
+      run:  docker compose up -d --build    
     #Instalacion dependencias
     - name: Install dependencies
       run: composer install --no-interaction --prefer-dist --no-progress --optimize-autoloader

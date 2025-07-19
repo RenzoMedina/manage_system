@@ -28,4 +28,8 @@ services:
       - ./vmData:/var/lib/mysql
       - ./database/db.sql:/docker-entrypoint-initdb.d/db.sql
     networks:
-    - mynetapi
+      - net-back
+
+networks:
+  net-back:
+    external: true
