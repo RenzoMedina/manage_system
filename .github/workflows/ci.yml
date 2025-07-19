@@ -41,6 +41,7 @@ jobs:
     
     #Docker
     - name: Set Up Docker compose
+      working-directory: ./backend
       run:  docker compose up -d --build    
     
     #Instalacion dependencias
@@ -64,6 +65,7 @@ jobs:
       #    name: php-report
        #   path: html-coverage/
   azureboard:
+    needs: php-dev
     runs-on: ubuntu-latest
     steps:
     #obteniendo el commit
