@@ -66,7 +66,7 @@ jobs:
             
     - name: Validar base de datos y usuario
       run: |
-        docker exec db_sa mysql -u db_admin -pdb_user -e "USE sistema_administrable; SELECT COUNT(*) FROM users;"
+        docker exec db_sa mysql -u db_admin -p db_user -e "USE sistema_administrable; SELECT COUNT(*) FROM users;"
     #Test
     - name: Run test suite
       working-directory: ./backend
