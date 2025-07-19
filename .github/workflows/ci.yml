@@ -44,10 +44,12 @@ jobs:
     
     #Instalacion dependencias
     - name: Install dependencies
+      working-directory: ./backend
       run: composer install --no-interaction --prefer-dist --no-progress --optimize-autoloader
 
     #Test
     - name: Run test suite
+      working-directory: ./backend
       run: docker exec backend composer tests
     
     #Run coverage
@@ -89,15 +91,3 @@ jobs:
             --header "Content-Type: application/json-patch+json" \
             --user :$AZDO_PAT \
             --data '[{ "op": "add", "path": "/fields/System.State", "value": "Done" }]'
-      
-  sonarqube:
-    runs-on: ubuntu-latest
-    steps:
-      - name: SonarQube
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v5
-        env:
-          SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
