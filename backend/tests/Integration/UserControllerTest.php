@@ -24,7 +24,6 @@ class UserControllerTest extends TestCase{
         ]);
         $autData = json_decode($authResponse->getBody(), true);
         $token = $autData['token'] ?? null ;
-        var_dump($token);
         $this->assertNotNull($token, "No token was received");
         $this->assertEquals(200, $authResponse->getStatusCode());
     }

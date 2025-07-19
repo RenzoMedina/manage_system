@@ -51,7 +51,10 @@ jobs:
     #Create Docker network
     - name: Crear red Docker externa
       run: docker network create net-back || true
-     #Docker
+    #Create vmData directory
+    - name: Crear carpeta vmData
+      run: mkdir -p vmData
+    #Docker
     - name: Set Up Docker compose
       working-directory: ./backend
       run:  docker compose up -d --build    
