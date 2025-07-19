@@ -16,6 +16,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Validate composer.json and composer.lock
+      working-directory: ./backend
       run: composer validate --strict
     # Set up PHP
     - name: Set up PHP
