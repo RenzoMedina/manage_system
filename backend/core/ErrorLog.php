@@ -4,7 +4,7 @@ namespace Core;
 
 class ErrorLog{
 
-    private static $path = __DIR__ . '/../../core/logs/';
+    private static $path = __DIR__. "/logs/";
     public static function errorsLog($log){
         if (!is_dir(self::$path)) {
             mkdir(self::$path, 0777, true);

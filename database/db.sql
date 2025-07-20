@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS table_roles(
 */
 CREATE TABLE IF NOT EXISTS table_users(
     `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `rut` VARCHAR(13) NOT NULL UNIQUE,
     `name` VARCHAR(50)NOT NULL,
     `last_name` VARCHAR(70)NOT NULL,
     `email` VARCHAR(70)NOT NULL UNIQUE,
@@ -260,4 +261,4 @@ INSERT INTO table_roles (`type_role`) VALUES("Administrador");
 /*
 ? Load data user for start
 */
-INSERT INTO table_users (`name`,`last_name`,`email`,`password`,`id_rol`) VALUES("Admin","Main","admin@sysadminclinical.com", "$2y$10$ru6P05vpIEyeGzzcROptbuXQgghvr4KlG8ZqWHbGQEXuYUKkxxHkm", 1);
+INSERT INTO table_users (`rut`,`name`,`last_name`,`email`,`password`,`id_rol`) VALUES("11.111.111-1","Admin","Main","admin@sysadminclinical.com", "$2y$10$ru6P05vpIEyeGzzcROptbuXQgghvr4KlG8ZqWHbGQEXuYUKkxxHkm", 1);

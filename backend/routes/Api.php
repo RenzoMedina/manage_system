@@ -20,6 +20,7 @@ Flight::group("/api", function(){
             Flight::route("GET /validateToken",[UserController::class, 'validateProfile'])->addMiddleware([new TokenMiddleware()]);
             Flight::route("GET /@id", [UserController::class,'show'])->addMiddleware([new TokenMiddleware()]);
             Flight::route('POST /',[UserController::class,'store'])->addMiddleware([new AuthMiddleware()]);
+            Flight::route('PUT /@id',[UserController::class,'update'])->addMiddleware([new TokenMiddleware()]);
         });
         
       /**
@@ -64,7 +65,18 @@ Flight::map('notFound', function(){
     ErrorLog::errorsLog("404 - Not Found");
 });
 
-Flight::route("POST /login", [UserController::class,'login']);
+/**
+ * ? route error
+ */
+Flight::map('error', function(\Throwable $ex){
+    
+    ErrorLog::errorsLog($ex->getMessage());Flight::json([
+        "status"=>500,
+        "message"=>$ex->getMessage()
+    ]);
+    
+})
+;Flight::route("POST /login", [UserController::class,'login']);
 
 Flight::before('start', [Cors::class, 'set']);
 

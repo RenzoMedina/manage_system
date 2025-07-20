@@ -20,12 +20,25 @@ class UserController{
         ]);
     }
 
-    public function show($id){
-        Flight::json([
-            "status"=>200,
-            "message"=>"route show id {$id}",
-            "env"=>$_ENV['DBNAME']
-        ]);
+    public function show(int $id){
+        try{
+            $data = (new User())->getId($id);
+            if ($id != $data['id'] || empty($data) || !isset($data) || !is_numeric($id)){
+                Flight::jsonHalt([],404);
+            }
+            Flight::json([
+                "message"=>"Data user with ID: {$id}",
+                "data"=>$data
+            ]);
+        }catch(Exception $e){
+             ErrorLog::errorsLog("404 -> User not found or data is empty or id: {$id} not valid - " . $e->getMessage());
+            Flight::jsonHalt([
+                "error"=>"User not found or data is empty or id not valid",
+                "details"=>$e->getMessage(),
+               
+            ],404);
+            
+        }
     }
 
     public function login(){
@@ -57,24 +70,42 @@ class UserController{
             "data"=>$data
             ]);
         } catch (Exception $e) {
+            ErrorLog::errorsLog("Unexpected error: " . $e->getMessage());
             Flight::jsonHalt([
             "error"=>"Unexpected error",
             "details"=>$e->getMessage()
             ],500);
-            ErrorLog::errorsLog("Unexpected error: " . $e->getMessage());
+           
         }
     }
-    public function update(){}
+    public function update(int $id){
+        $data = Flight::request()->data;
+        $success = (new User())->update($id,$data);
+        if ($success){
+            Flight::json([
+                "status"=>200,
+                "message"=>"Data updated by {$id}",
+                "data"=>$data
+            ]);
+        }else{
+             ErrorLog::errorsLog("409 -> Data update has not been carried out validate id for users with ID: {$id}");
+            Flight::jsonHalt([
+                "error"=>"Data update has not been carried out validate id"
+            ], 409);
+           
+        } 
+    }
 
     public function validateProfile(){
         $heades = getallheaders();
         $auth = isset($heades['Authorization']) ? $heades['Authorization'] : null;
 
         if(!$auth ||!str_starts_with($auth, 'Bearer ') ){
+            ErrorLog::errorsLog("401 -> Token not sent!!");
             Flight::jsonHalt([
             "error"=>"Token not sent!!",
             ],401);
-            ErrorLog::errorsLog("401 -> Token not sent!!");
+           
         }
         $token = substr($auth,7);
 
@@ -86,11 +117,12 @@ class UserController{
                 "rol"=>$decode->rol
             ]);
         } catch(Exception $e){
+            ErrorLog::errorsLog("401 Token invalid!!: " . $e->getMessage());
             Flight::jsonHalt([
                         "error"=>"Token invalid!!",
                         "details"=>$e->getMessage()
                 ],500);
-            ErrorLog::errorsLog("401 Token invalid!!: " . $e->getMessage());
+            
         }
     }
 
