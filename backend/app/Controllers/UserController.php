@@ -64,7 +64,22 @@ class UserController{
             ErrorLog::errorsLog("Unexpected error: " . $e->getMessage());
         }
     }
-    public function update(){}
+    public function update(int $id){
+        $data = Flight::request()->data;
+        $success = (new User())->update($id,$data);
+        if ($success){
+            Flight::json([
+                "status"=>200,
+                "message"=>"Data updated by {$id}",
+                "data"=>$data
+            ]);
+        }else{
+            Flight::jsonHalt([
+                "error"=>"Data update has not been carried out validate id"
+            ], 409);
+            ErrorLog::errorsLog("409 -> Data update has not been carried out validate id for users with ID: {$id}");
+        } 
+    }
 
     public function validateProfile(){
         $heades = getallheaders();

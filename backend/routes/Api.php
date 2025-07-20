@@ -20,6 +20,7 @@ Flight::group("/api", function(){
             Flight::route("GET /validateToken",[UserController::class, 'validateProfile'])->addMiddleware([new TokenMiddleware()]);
             Flight::route("GET /@id", [UserController::class,'show'])->addMiddleware([new TokenMiddleware()]);
             Flight::route('POST /',[UserController::class,'store'])->addMiddleware([new AuthMiddleware()]);
+            Flight::route('PUT /@id',[UserController::class,'update'])->addMiddleware([new TokenMiddleware()]);
         });
         
       /**
