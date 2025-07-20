@@ -65,7 +65,18 @@ Flight::map('notFound', function(){
     ErrorLog::errorsLog("404 - Not Found");
 });
 
-Flight::route("POST /login", [UserController::class,'login']);
+/**
+ * ? route error
+ */
+Flight::map('error', function(\Throwable $ex){
+    
+    ErrorLog::errorsLog($ex->getMessage());Flight::json([
+        "status"=>500,
+        "message"=>$ex->getMessage()
+    ]);
+    
+})
+;Flight::route("POST /login", [UserController::class,'login']);
 
 Flight::before('start', [Cors::class, 'set']);
 
