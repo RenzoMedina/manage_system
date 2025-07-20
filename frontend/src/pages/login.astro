@@ -1,12 +1,51 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import FondoLogin from "../image/fondo_login.jpg";
 ---
 <BaseLayout>
-  <form id="loginForm" class="max-w-sm mx-auto mt-10 space-y-4">
-    <input name="name" type="text" placeholder="Email" required class="input w-full" />
-    <input name="password" type="password" placeholder="Contraseña" required class="input w-full" />
-    <button type="submit" class="btn btn-primary w-full">Ingresar</button>
-  </form>
+
+
+<div class="min-h-screen flex items-center justify-center p-4 login-gradient">
+  <div class="flex flex-col md:flex-row bg-white rounded-2xl shadow-2xl overflow-hidden max-w-4xl w-full">
+
+    <div class="hidden md:block md:w-1/2 bg-gray-200">
+     <Image src={FondoLogin} alt="Imagen de login" width="900"
+              class="w-full h-full object-cover" />
+    </div>
+
+    <div class="w-full md:w-1/2 p-6 sm:p-10 bg-gray-50-100">
+      <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Iniciar Sesión</h1>
+
+      <form id="loginForm" class="space-y-5">
+        <div>
+          <label for="name" class="block mb-2 text-sm font-medium text-gray-700">Usuario</label>
+          <input type="text" id="name" placeholder="Ej: nombreusuario"
+            class="w-full p-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            required>
+        </div>
+
+        <div>
+          <label for="password" class="block mb-2 text-sm font-medium text-gray-700">Contraseña</label>
+          <input type="password" id="password"
+            class="w-full p-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            required>
+        </div>
+
+        <div class="flex items-center">
+          <input id="remember" type="checkbox"
+            class="w-4 h-4 border-gray-300 rounded focus:ring-blue-500">
+          <label for="remember" class="ml-2 text-sm text-gray-700">Recuérdame</label>
+        </div>
+
+        <button type="submit"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+          Ingresar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
 
   <script type="module">
     import axios from 'https://cdn.jsdelivr.net/npm/axios@1.6.8/+esm';
