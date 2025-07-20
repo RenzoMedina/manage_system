@@ -9,7 +9,7 @@
       return;
     }
 
-    try {
+   /*  try {
       const res = await axios.get("https://tu-backend.com/api/validar-token", {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -21,7 +21,7 @@
     } catch (err) {
       localStorage.removeItem("token");
       window.location.href = "/login";
-    }
+    } */
   }
 
   checkAuth();
