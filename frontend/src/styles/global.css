@@ -1,4 +1,6 @@
 @import "tailwindcss";
 @import "flowbite/src/themes/default";
-@plugin "flowbite/plugin";
-@source "../../node_modules/flowbite";
+
+.login-gradient{
+    background:radial-gradient(at 98.71280648604198% 28.232541094159004%, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 100%, 0) 100%), radial-gradient(at 25.34532666445568% 85.88599135417041%, hsla(192, 42.25352112676056%, 27.84313725490196%, 1) 0%, hsla(192, 42.25352112676056%, 27.84313725490196%, 0) 100%), radial-gradient(at 37.8374698499717% 5.853904502014096%, hsla(0, 0%, 100%, 1) 0%, hsla(0, 0%, 100%, 0) 100%);
+}
