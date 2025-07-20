@@ -81,6 +81,7 @@ class UserController{
         try{
             $decode = validatedToken($token,$_ENV['TOKEN']);
             Flight::json([
+                "token"=>$token,
                 "validated"=>true,
                 "rol"=>$decode->rol
             ]);

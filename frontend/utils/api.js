@@ -4,9 +4,9 @@ export function getToken() {
   return localStorage.getItem("token");
 }
 
-export function apiAuth() {
+export function apiAuth(uri) {
   return axios.create({
-    baseURL: "https://tu-backend.com/api",
+    baseURL: `http://localhost:8080/api/v1/${uri}`,
     headers: {
       Authorization: `Bearer ${getToken()}`
     }
