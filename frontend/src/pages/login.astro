@@ -1,1 +1,38 @@
-<h1>Login</h1>
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+<BaseLayout>
+  <form id="loginForm" class="max-w-sm mx-auto mt-10 space-y-4">
+    <input name="name" type="text" placeholder="Email" required class="input w-full" />
+    <input name="password" type="password" placeholder="Contraseña" required class="input w-full" />
+    <button type="submit" class="btn btn-primary w-full">Ingresar</button>
+  </form>
+
+  <script type="module">
+    import axios from 'https://cdn.jsdelivr.net/npm/axios@1.6.8/+esm';
+
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      try {
+        const res = await axios.post("http://localhost:8080/login", {
+             name: "Admin",
+             password: "adminMain"
+        },{
+            headers: {
+            "Content-Type": "application/json",
+        }
+        });
+
+        const token = res.data.token;
+        if (token) {
+          localStorage.setItem("token", token);
+          window.location.href = "/";
+        }
+      } catch (err) {
+        alert("Error al iniciar sesión");
+        console.log(err)
+      }
+    });
+  </script>
+</BaseLayout>
