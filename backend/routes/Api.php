@@ -5,6 +5,7 @@ use App\Controllers\RoleController;
 use App\Controllers\UserController;
 use App\Middlewares\AuthMiddleware;
 use App\Middlewares\TokenMiddleware;
+use App\Utils\Cors;
 use Core\ErrorLog;
 
 Flight::group("/api", function(){
@@ -63,5 +64,7 @@ Flight::map('notFound', function(){
 });
 
 Flight::route("POST /login", [UserController::class,'login']);
+
+Flight::before('start', [Cors::class, 'set']);
 
 Flight::start();
