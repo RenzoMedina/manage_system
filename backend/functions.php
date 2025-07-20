@@ -15,7 +15,7 @@ function getToken($data,$admin){
     $key = $_ENV['TOKEN'];
     $payload = [
         'exp'=>$now + 3600,
-        'admin'=>$admin,
+        'rol'=>$admin,
         'data'=> $data
     ];
     $jwt = JWT::encode($payload, $key, 'HS256');

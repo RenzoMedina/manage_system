@@ -16,7 +16,7 @@ class AuthMiddleware{
             $token = trim(str_replace('Bearer',"",$auth));
             $admin = validatedToken($token, $_ENV['TOKEN']);
 
-            if ($admin->admin != "Administrador"){
+            if ($admin->rol != "Administrador"){
                 Flight::jsonHalt([
                     "error"=>"Access denied. Admin privileges required"
                 ], 401);

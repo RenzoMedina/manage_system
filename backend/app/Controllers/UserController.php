@@ -66,4 +66,31 @@ class UserController{
     }
     public function update(){}
 
+    public function validateProfile(){
+        $heades = getallheaders();
+        $auth = isset($heades['Authorization']) ? $heades['Authorization'] : null;
+
+        if(!$auth ||!str_starts_with($auth, 'Bearer ') ){
+            Flight::jsonHalt([
+            "error"=>"Token not sent!!",
+            ],401);
+            ErrorLog::errorsLog("401 -> Token not sent!!");
+        }
+        $token = substr($auth,7);
+
+        try{
+            $decode = validatedToken($token,$_ENV['TOKEN']);
+            Flight::json([
+                "validated"=>true,
+                "rol"=>$decode->rol
+            ]);
+        } catch(Exception $e){
+            Flight::jsonHalt([
+                        "error"=>"Token invalid!!",
+                        "details"=>$e->getMessage()
+                ],500);
+            ErrorLog::errorsLog("401 Token invalid!!: " . $e->getMessage());
+        }
+    }
+
 }
