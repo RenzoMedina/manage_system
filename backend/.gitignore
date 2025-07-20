@@ -6,3 +6,7 @@ composer.phar
 
 # PHPUnit
 .phpunit.cache
+
+#Logs
+core/logs/
+

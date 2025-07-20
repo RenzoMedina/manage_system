@@ -17,6 +17,7 @@ Flight::group("/api", function(){
     Flight::group("/v1", function(){
         Flight::group("/user", function(){
             Flight::route("GET /",[UserController::class, 'index'])->addMiddleware([new TokenMiddleware()]);
+            Flight::route("GET /validateToken",[UserController::class, 'validateProfile'])->addMiddleware([new TokenMiddleware()]);
             Flight::route("GET /@id", [UserController::class,'show'])->addMiddleware([new TokenMiddleware()]);
             Flight::route('POST /',[UserController::class,'store'])->addMiddleware([new AuthMiddleware()]);
         });

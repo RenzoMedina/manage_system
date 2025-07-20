@@ -1,27 +1,25 @@
 
 <script type="module">
-  import axios from 'https://cdn.jsdelivr.net/npm/axios@1.6.8/+esm';
 
+  import { getToken,apiAuth } from '../../utils/api';
   async function checkAuth() {
-    const token = localStorage.getItem("token");
+    const token = getToken();
     if (!token) {
       window.location.href = "/login";
       return;
     }
 
-   /*  try {
-      const res = await axios.get("https://tu-backend.com/api/validar-token", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      if (!res.data?.valido) {
+    try {
+      const res = await apiAuth("user").get("/validateToken");
+      if (!res.data?.validated) {
         localStorage.removeItem("token");
         window.location.href = "/login";
       }
+      localStorage.setItem("rol", res.data.rol);
     } catch (err) {
       localStorage.removeItem("token");
       window.location.href = "/login";
-    } */
+    } 
   }
 
   checkAuth();

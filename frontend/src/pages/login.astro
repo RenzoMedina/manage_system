@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import FondoLogin from "../image/fondo_login.jpg";
+
 ---
 <BaseLayout>
 
@@ -52,7 +53,6 @@ import FondoLogin from "../image/fondo_login.jpg";
 
     document.getElementById("loginForm").addEventListener("submit", async (e) => {
       e.preventDefault();
-      const form = e.target;
       try {
         const res = await axios.post("http://localhost:8080/login", {
              name: "Admin",
@@ -66,6 +66,16 @@ import FondoLogin from "../image/fondo_login.jpg";
         const token = res.data.token;
         if (token) {
           localStorage.setItem("token", token);
+          switch (localStorage.rol) {
+            case "Administrador":
+                window.location.href = "/"; 
+              break;
+            case "Supervisora":
+                window.location.href = "/supervisora"; 
+              break;
+            default:
+              break;
+          }
           window.location.href = "/";
         }
       } catch (err) {
