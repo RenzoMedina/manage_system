@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\User;
+use App\Services\UserService;
 use Core\ErrorLog;
 use Exception;
 use Flight;
@@ -12,6 +13,7 @@ class UserController{
     protected $user;
     public function __construct(){
         $this->user = new User();
+
     }
     public function index(){
         $data = (new User())->getAll();
@@ -44,7 +46,7 @@ class UserController{
     public function login(){
         $user = Flight::request()->data->name;
         $field = Flight::request()->data;
-        $token = $this->user->loginUser($user, $field);
+        $token = (new UserService())->loginUser($user,$field);
         Flight::json([
             "token"=>$token,
         ]);
