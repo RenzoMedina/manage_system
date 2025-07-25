@@ -1,11 +1,11 @@
-# 📦 Administrative System API
+# 📦 Manager System API
 
 Modular API for administrative resource management, developed in PHP with focus on backend best practices and deployment with Docker.
 
 ## 🚀 Main features
 
 - Native PHP-based architecture
-- Custom Docker container (backend-php:1.0)
+- Custom Docker container (backend-php:1.0 -> pending change name)
 - Environment variables managed with .env and docker-compose
 - Integration with MySQL as database
 - Configuration of ports and volumes for local development
@@ -44,8 +44,8 @@ system_admin_api/
 * Clones the repository
 
 ```bash
-git clone https://github.com/RenzoMedina/system_admin_api.git
-cd system_admin_api
+git clone https://github.com/RenzoMedina/manage_system
+cd manage_system
 ```
 *  Create your .env file in ./backend/.env:
 ```env
@@ -59,7 +59,7 @@ DBPASS=you user
 ## 🧪 Testing
 
 ```php
-composer run-script tests
+composer run-script tests or composer tests
 ```
 ## 📚 Main Endpoint
 route v1 "/api/v1"
@@ -84,4 +84,3 @@ route v1 "/api/v1"
 
 Renzo Steven Medina Olaya
 Backend Developer transitioning into DevOps
-

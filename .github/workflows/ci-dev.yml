@@ -46,30 +46,6 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
     
-    #Clean up previous Docker containers
-    - name: Docker Compose Down (limpieza previa)
-      run: docker compose down -v --remove-orphans || true
-    
-    #Create .env file
-    - name: Create .env file
-      run: |
-        echo "TOKEN=sistema_administrable" >> backend/.env
-        echo "DBNAME=sistema_administrable" >> backend/.env
-        echo "WDBTYPE=mysql" >> backend/.env
-        echo "DBHOST=db_sa" >> backend/.env
-        echo "DBUSER=db_admin" >> backend/.env
-        echo "DBPASS=db_user" >> backend/.env
-    #Create Docker network
-    - name: Crear red Docker externa
-      run: docker network create net-back || true
-    #Create vmData directory
-    - name: Crear carpeta vmData
-      run: mkdir -p vmData
-    #Docker
-    - name: Set Up Docker compose
-      working-directory: ./backend
-      run:  docker compose up -d --build    
-    
     #Instalacion dependencias
     - name: Install dependencies
       working-directory: ./backend
@@ -78,7 +54,8 @@ jobs:
     #Test
     - name: Run test suite
       working-directory: ./backend
-      run: docker exec backend composer tests
+      #run: docker exec backend composer tests
+      run: composer tests
     
     #Run coverage
    # - name: Run coverage
