@@ -84,4 +84,3 @@ route v1 "/api/v1"
 
 Renzo Steven Medina Olaya
 Backend Developer transitioning into DevOps
-
