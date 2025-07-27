@@ -2,12 +2,21 @@
 
 namespace App\Services;
 
+use Core\ErrorLog;
+use Exception;
 use Flight;
 use Core\ServiceProvider;
 
 class PatientService extends ServiceProvider{
     private $tableContact = "table_contacts_patients";
     private $tableDetailsClinical = "table_details_medicals";
+    private $tableReport = "table_daily_report_of_patient";
+    private $tableIntake = "table_intake_control_report_of_patient";
+    private $tableExpense = "table_expense_control_report_of_patient";
+    private $tableVital = "table_vital_signs_report_of_patient";
+    private $tableOtherInstructions = "table_other_instructions_report_of_patient";
+    private $tableDayEvaluations ="table_day_evaluation_report_of_patient";
+    private $tableNightEvaluations ="night_evaluation_report_of_patient";
     public function contactOfPatient(int $idPatient, $data){
         try{
             $this->db->insert($this->tableContact,[
@@ -19,7 +28,8 @@ class PatientService extends ServiceProvider{
                 "telephone"=>$data->telephone,
             ]);
         }
-        catch(\Exception $e){
+        catch(Exception $e){
+             ErrorLog::errorsLog($e->getMessage());
             Flight::jsonHalt([
                 "error"=>$e->getMessage()
             ],403);    
@@ -49,7 +59,8 @@ class PatientService extends ServiceProvider{
             ]);
             $rowsOk = $rowsAffected->rowCount();
             return $rowsOk > 0;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
+             ErrorLog::errorsLog($e->getMessage());
              Flight::jsonHalt([
                 "error"=>$e->getMessage()
             ],403);
@@ -66,7 +77,8 @@ class PatientService extends ServiceProvider{
                 "cit"=>$data->cit,
             ]);
         }
-        catch(\Exception $e){
+        catch(Exception $e){
+             ErrorLog::errorsLog($e->getMessage());
             Flight::jsonHalt([
                 "error"=>$e->getMessage()
             ],403);    
@@ -96,10 +108,127 @@ class PatientService extends ServiceProvider{
             ]);
             $rowsOk = $rowsAffected->rowCount();
             return $rowsOk > 0;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
+             ErrorLog::errorsLog($e->getMessage());
              Flight::jsonHalt([
                 "error"=>$e->getMessage()
             ],403);
+        }
+    }
+
+    public function createReport(int $idPatient, int $idUser, $data){
+        try{    
+            $this->db->insert($this->tableReport,[
+                "id_patient"=> $idPatient,
+                "observartions_global" => $data->observartions_global,
+                "id_user"=>$idUser
+            ]);
+        }catch(Exception $e){
+                 ErrorLog::errorsLog($e->getMessage());
+                Flight::jsonHalt([
+                    "error"=>$e->getMessage()
+                    ],403); 
+        }
+    }
+
+    public function createVitalSigns(int $idReport, $data){
+        try{    
+            $this->db->insert($this->tableVital,[
+                "id_daily_report"=> $idReport,
+                "hh_start" => $data->hh_start,
+                "hh_end" => $data->hh_end,
+                "blood_pressure" => $data->blood_pressure,
+                "respiratory_rate" => $data->respiratory_rate,
+                "heart_rate" => $data->heart_rate,
+                "saturation" => $data->saturation,
+                "temperature" => $data->temperature,
+                "eva_flacc"=>$data->eva_flacc
+            ]);
+        }catch(Exception $e){
+                ErrorLog::errorsLog($e->getMessage());
+                Flight::jsonHalt([
+                    "error"=>$e->getMessage()
+                    ],403); 
+        }
+    }
+    public function createIntakeControl(int $idReport, $data){
+        try{    
+            $this->db->insert($this->tableIntake,[
+                "id_daily_report"=> $idReport,
+                "hh_start" => $data->hh_start,
+                "hh_end" => $data->hh_end,
+                "type_food" => $data->type_food,
+                "tolerance" => $data->tolerance
+            ]);
+        }catch(Exception $e){
+                 ErrorLog::errorsLog($e->getMessage());
+                Flight::jsonHalt([
+                    "error"=>$e->getMessage()
+                    ],403); 
+        }
+    }
+
+    public function createExpenseControl(int $idReport, $data){
+        try{    
+            $this->db->insert($this->tableExpense,[
+                "id_daily_report"=> $idReport,
+                "hh_start" => $data->hh_start,
+                "hh_end" => $data->hh_end,
+                "urine" => $data->urine,
+                "deposition" => $data->deposition,
+                "others" => $data->others,
+                    ]);
+        }catch(Exception $e){
+                 ErrorLog::errorsLog($e->getMessage());
+                Flight::jsonHalt([
+                        "error"=>$e->getMessage()
+                ],403); 
+        }
+    }
+
+    public function createOtherInstructions(int $idReport, $data){
+        try{    
+            $this->db->insert($this->tableOtherInstructions,[
+                "id_daily_report"=> $idReport,
+                "schedule" => $data->schedule,
+                "observations" => $data->observations,
+                "frequency" => $data->frequency
+                    ]);
+        }catch(Exception $e){
+                ErrorLog::errorsLog($e->getMessage());
+                Flight::jsonHalt([
+                        "error"=>$e->getMessage()
+                ],403); 
+        }
+    }
+
+    public function createDayEvalutions(int $idReport, $data){
+        try{    
+            $this->db->insert($this->tableDayEvaluations,[
+                "id_daily_report"=> $idReport,
+                "observations" => $data->observations,
+                "date" => $data->date
+                    ]);
+        }catch(Exception $e){
+                ErrorLog::errorsLog($e->getMessage());
+                Flight::jsonHalt([
+                        "error"=>$e->getMessage()
+                ],403); 
+        }
+    }
+
+    public function createNightEvalutions(int $idReport, $data){
+        try{    
+            $this->db->insert($this->tableNightEvaluations,[
+                "id_daily_report"=> $idReport,
+                "observations" => $data->observations,
+                "date" => $data->date
+                    ]);
+        }catch(Exception $e){
+                ErrorLog::errorsLog($e->getMessage());
+                Flight::jsonHalt([
+                        "error"=>$e->getMessage()
+                ],403); 
         }
     }
 }

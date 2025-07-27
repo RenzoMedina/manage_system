@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
+use Core\ServiceProvider;
 use Flight;
-use Core\Model;
 use Core\ErrorLog;
 use PharIo\Version\Exception;
 
-class UserService extends Model{
+class UserService extends ServiceProvider{
 
     public function loginUser($name, $field){
         try {

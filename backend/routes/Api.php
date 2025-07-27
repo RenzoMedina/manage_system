@@ -50,8 +50,17 @@ Flight::group("/api", function(){
             Flight::post("/details-clinical",[PatientController::class, 'storeDetailsClinical']);
             Flight::put("/contact/@contact_id",[PatientController::class, 'updateContact']);
             Flight::put("/details-clinical/@details_id",[PatientController::class, 'updateDetailClinical']);
+            Flight::post("/report/@idUser",[PatientController::class,"reportDaily"]);
+            Flight::post("/report/intake/@idreport",[PatientController::class,"intakeControl"]);
+            Flight::post("/report/expense/@idreport",[PatientController::class,"expenseControl"]);
+            Flight::post("/report/vitalsigns/@idreport",[PatientController::class,"vitalSigns"]);
+            Flight::post("/report/ohtersinstructions/@idreport",[PatientController::class,"othersInstructions"]);
+            Flight::post("/report/dayevalutations/@idreport",[PatientController::class,"dayEvaluations"]);
+            Flight::post("/report/nightevalutations/@idreport",[PatientController::class,"nightEvaluations"]);
         },[new TokenMiddleware()]);
+
     });
+        
 });
 
 /**
