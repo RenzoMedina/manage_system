@@ -57,6 +57,7 @@ Flight::group("/api", function(){
             Flight::post("/report/ohtersinstructions/@idreport",[PatientController::class,"othersInstructions"]);
             Flight::post("/report/dayevalutations/@idreport",[PatientController::class,"dayEvaluations"]);
             Flight::post("/report/nightevalutations/@idreport",[PatientController::class,"nightEvaluations"]);
+            Flight::route("GET /report",[PatientController::class,"getReportById"]);
         },[new TokenMiddleware()]);
 
     });
@@ -67,11 +68,11 @@ Flight::group("/api", function(){
  * ? route not found or 404
  */
 Flight::map('notFound', function(){
+    ErrorLog::errorsLog("404 - Not Found");
     Flight::json([
         "status"=>404,
         "message"=>"Not Found"
     ]);
-    ErrorLog::errorsLog("404 - Not Found");
 });
 
 /**

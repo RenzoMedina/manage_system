@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Core\AppLog;
 use Core\Model;
 
 class Role extends Model{
@@ -10,10 +11,12 @@ class Role extends Model{
             'type_role'=>$data,
         ]);
         $roleId = $this->db->id();
+        AppLog::appLog("Role created successfully with ID: " . $roleId);
         return $roleId;
     }
 
     public function getAll(){
+        AppLog::appLog("Fetching all roles");
         return $this->db->select('table_roles','*');
     }
 }
