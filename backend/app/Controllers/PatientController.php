@@ -185,8 +185,8 @@ class PatientController{
         ]);
     }
 
-        public function nightEvaluations(int $idPatient, int $idReport){
-         $data = Flight::request()->data;
+    public function nightEvaluations(int $idPatient, int $idReport){
+        $data = Flight::request()->data;
         (new PatientService())->createNightEvalutions($idReport,$data);
         Flight::json([
             "status"=>201,
@@ -197,4 +197,12 @@ class PatientController{
         ]);
     }
 
+    public function getReportById(int $idPatient){
+         $data = (new PatientService())->getReportByIdPatient($idPatient);
+        Flight::json([
+            "status"=>200,
+            "message"=>"Data report by id Patient {$idPatient}",
+            "content"=>$data
+        ]);
+    }
 }

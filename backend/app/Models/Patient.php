@@ -77,15 +77,31 @@ class Patient extends Model{
      */
     public function getById(int $id){
         try {
-            return $this->db->get($this->table,'*',[
-            "id"=>$id
-            ]);
-        } catch (Exception $e) {
-            Flight::jsonHalt([
-                "error"=>$e->getMessage()
-            ],403);
-            ErrorLog::errorsLog("403 -> Error fetching patient by ID: " . $e->getMessage());
+        $patient = $this->db->get($this->table, '*', [
+            "id" => $id
+        ]);
+        if (!$patient) {
+            throw new Exception("Patient not found");
         }
+        $contacts = $this->db->select("table_contacts_patients", '*', [
+            "id_patient" => $patient['id']
+        ]);
+
+        $detailsClinical = $this->db->select("table_details_medicals", '*', [
+            "id_patient" => $patient['id']
+        ]);
+
+        return [
+                "patient" => $patient,
+                "contacts" => $contacts,
+                "detailsClinical" => $detailsClinical
+        ];
+    } catch (Exception $e) {
+        ErrorLog::errorsLog("403 -> Error fetching patient by ID: " . $e->getMessage());
+        Flight::jsonHalt([
+            "error" => $e->getMessage()
+        ], 403);
+    }
     }
 
     public function update(int $id, $data){

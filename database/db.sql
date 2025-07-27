@@ -120,9 +120,8 @@ CREATE TABLE IF NOT EXISTS table_daily_report_of_patient(
 CREATE TABLE IF NOT EXISTS table_vital_signs_report_of_patient(
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `id_daily_report` INT,
-    `hh_start` TIME,
-    `hh_end` TIME,
-    `blood_pressure` FLOAT,
+    `schedule` TIME,
+    `blood_pressure` VARCHAR(10),
     `respiratory_rate` FLOAT,
     `heart_rate` FLOAT,
     `saturation` FLOAT,
@@ -139,8 +138,7 @@ CREATE TABLE IF NOT EXISTS table_vital_signs_report_of_patient(
 CREATE TABLE IF NOT EXISTS table_intake_control_report_of_patient(
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `id_daily_report` INT,
-    `hh_start` TIME,
-    `hh_end` TIME,
+    `schedule` TIME,
     `type_food` TEXT,
     `tolerance` TEXT,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -154,8 +152,7 @@ CREATE TABLE IF NOT EXISTS table_intake_control_report_of_patient(
 CREATE TABLE IF NOT EXISTS table_expense_control_report_of_patient(
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `id_daily_report` INT,
-    `hh_start` TIME,
-    `hh_end` TIME,
+    `schedule` TIME,
     `urine` BOOLEAN,
     `deposition` BOOLEAN,
     `others` TEXT,
@@ -185,7 +182,7 @@ CREATE TABLE IF NOT EXISTS table_day_evaluation_report_of_patient(
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `id_daily_report` INT,
     `observations` TEXT,
-    `date` DATETIME,
+    `date` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT fk_day_evaluation_id_daily_report FOREIGN KEY (`id_daily_report`) REFERENCES `table_daily_report_of_patient` (`id`) ON DELETE SET NULL
@@ -198,7 +195,7 @@ CREATE TABLE IF NOT EXISTS table_night_evaluation_report_of_patient(
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `id_daily_report` INT,
     `observations` TEXT,
-    `date` DATETIME,
+    `date` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT fk_night_evaluation_id_daily_report FOREIGN KEY (`id_daily_report`) REFERENCES `table_daily_report_of_patient` (`id`) ON DELETE SET NULL
@@ -215,7 +212,7 @@ CREATE INDEX idx_daily_created_at ON table_daily_report_of_patient (created_at);
 ? for manage relations vital signs report of patient
 */
 CREATE INDEX idx_vital_daily ON table_vital_signs_report_of_patient (id_daily_report);
-CREATE INDEX idx_vital_start_end ON table_vital_signs_report_of_patient (hh_start, hh_end);
+CREATE INDEX idx_vital_schedule ON table_vital_signs_report_of_patient (schedule);
 CREATE INDEX idx_vital_created_at ON table_vital_signs_report_of_patient (created_at);
 
 /*

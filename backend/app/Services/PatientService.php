@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
-use Core\ErrorLog;
-use Exception;
 use Flight;
+use Exception;
+use Core\ErrorLog;
+use App\Utils\Pagination;
 use Core\ServiceProvider;
 
 class PatientService extends ServiceProvider{
@@ -16,7 +17,7 @@ class PatientService extends ServiceProvider{
     private $tableVital = "table_vital_signs_report_of_patient";
     private $tableOtherInstructions = "table_other_instructions_report_of_patient";
     private $tableDayEvaluations ="table_day_evaluation_report_of_patient";
-    private $tableNightEvaluations ="night_evaluation_report_of_patient";
+    private $tableNightEvaluations ="table_night_evaluation_report_of_patient";
     public function contactOfPatient(int $idPatient, $data){
         try{
             $this->db->insert($this->tableContact,[
@@ -135,8 +136,7 @@ class PatientService extends ServiceProvider{
         try{    
             $this->db->insert($this->tableVital,[
                 "id_daily_report"=> $idReport,
-                "hh_start" => $data->hh_start,
-                "hh_end" => $data->hh_end,
+                "schedule" => $data->schedule,
                 "blood_pressure" => $data->blood_pressure,
                 "respiratory_rate" => $data->respiratory_rate,
                 "heart_rate" => $data->heart_rate,
@@ -155,8 +155,7 @@ class PatientService extends ServiceProvider{
         try{    
             $this->db->insert($this->tableIntake,[
                 "id_daily_report"=> $idReport,
-                "hh_start" => $data->hh_start,
-                "hh_end" => $data->hh_end,
+                "schedule" => $data->schedule,
                 "type_food" => $data->type_food,
                 "tolerance" => $data->tolerance
             ]);
@@ -172,8 +171,7 @@ class PatientService extends ServiceProvider{
         try{    
             $this->db->insert($this->tableExpense,[
                 "id_daily_report"=> $idReport,
-                "hh_start" => $data->hh_start,
-                "hh_end" => $data->hh_end,
+                "schedule" => $data->schedule,
                 "urine" => $data->urine,
                 "deposition" => $data->deposition,
                 "others" => $data->others,
@@ -206,8 +204,7 @@ class PatientService extends ServiceProvider{
         try{    
             $this->db->insert($this->tableDayEvaluations,[
                 "id_daily_report"=> $idReport,
-                "observations" => $data->observations,
-                "date" => $data->date
+                "observations" => $data->observations
                     ]);
         }catch(Exception $e){
                 ErrorLog::errorsLog($e->getMessage());
@@ -221,14 +218,44 @@ class PatientService extends ServiceProvider{
         try{    
             $this->db->insert($this->tableNightEvaluations,[
                 "id_daily_report"=> $idReport,
-                "observations" => $data->observations,
-                "date" => $data->date
+                "observations" => $data->observations
                     ]);
         }catch(Exception $e){
                 ErrorLog::errorsLog($e->getMessage());
                 Flight::jsonHalt([
                         "error"=>$e->getMessage()
                 ],403); 
+        }
+    }
+
+    public function getReportByIdPatient(int $idPatient){
+        try{
+            $filtres = ["id_patient"=> $idPatient];
+            $pagination = Pagination::paginateById($this->db, $this->tableReport,$filtres, "/api/v1/patient/report");
+            $details = $pagination['data'];
+
+            $result = [];
+            foreach ($details as $detail) {
+                $reportId = $detail['id'];
+            $result[] = [
+                "vital_signs" => $this->db->select($this->tableVital, '*', ["id_daily_report" => $reportId]),
+                "intake_control" => $this->db->select($this->tableIntake, '*', ["id_daily_report" => $reportId]),
+                "expense_control" => $this->db->select($this->tableExpense, '*', ["id_daily_report" => $reportId]),
+                "other_instructions" => $this->db->select($this->tableOtherInstructions, '*', ["id_daily_report" => $reportId]),
+                "day_evaluations" => $this->db->select($this->tableDayEvaluations, '*', ["id_daily_report" => $reportId]),
+                "night_evaluations" => $this->db->select($this->tableNightEvaluations, '*', ["id_daily_report" => $reportId])
+            ];
+            }
+            return [
+                "data" => $result,
+                "pagination" => $pagination['pagination']
+            ];
+        
+        }catch(Exception $e){
+            ErrorLog::errorsLog("401 -> Error fetching all patients: " . $e->getMessage());
+            Flight::jsonHalt([
+                "error"=>$e->getMessage()
+            ],401);
         }
     }
 }

@@ -57,6 +57,7 @@ Flight::group("/api", function(){
             Flight::post("/report/ohtersinstructions/@idreport",[PatientController::class,"othersInstructions"]);
             Flight::post("/report/dayevalutations/@idreport",[PatientController::class,"dayEvaluations"]);
             Flight::post("/report/nightevalutations/@idreport",[PatientController::class,"nightEvaluations"]);
+            Flight::route("GET /report",[PatientController::class,"getReportById"]);
         },[new TokenMiddleware()]);
 
     });
