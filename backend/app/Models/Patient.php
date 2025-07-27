@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Core\AppLog;
 use Flight;
 use Exception;
 use Core\Model;
@@ -35,16 +36,16 @@ class Patient extends Model{
                     "detailsClinical" => $detailsClinical
                 ];
             }
+            AppLog::appLog("Fetched all patients successfully.");
             return [
                 "data" => $result,
                 "pagination" => $pagination['pagination']
             ];
-        
         }catch(Exception $e){
+            ErrorLog::errorsLog("401 -> Error fetching all patients: " . $e->getMessage());
             Flight::jsonHalt([
                 "error"=>$e->getMessage()
             ],401);
-            ErrorLog::errorsLog("401 -> Error fetching all patients: " . $e->getMessage());
         }
     }
     /**
@@ -62,11 +63,12 @@ class Patient extends Model{
                 "weigth"=>$data->weigth,
                 "size"=>$data->size
             ]);
+            AppLog::appLog("Patient created successfully with ID: " . $this->db->id());
         } catch (Exception $e) {
+            ErrorLog::errorsLog("403 -> Error creating patient: " . $e->getMessage());
             Flight::jsonHalt([
                 "error"=>$e->getMessage()
             ],403);
-            ErrorLog::errorsLog("403 -> Error creating patient: " . $e->getMessage());
         }
     }
 
@@ -90,7 +92,7 @@ class Patient extends Model{
         $detailsClinical = $this->db->select("table_details_medicals", '*', [
             "id_patient" => $patient['id']
         ]);
-
+        AppLog::appLog("Fetched patient by ID: " . $id);
         return [
                 "patient" => $patient,
                 "contacts" => $contacts,
@@ -118,12 +120,13 @@ class Patient extends Model{
                 "id"=>$id
             ]);
             $rowsOk = $rowsAffected->rowCount();
+            AppLog::appLog("Patient with ID: {$id} updated successfully. Rows affected: {$rowsOk}");
             return $rowsOk > 0;
         } catch (Exception $e) {
+            ErrorLog::errorsLog("403 -> Error updating patient with ID: {$id} - " . $e->getMessage());
              Flight::jsonHalt([
                 "error"=>$e->getMessage()
             ],403);
-            ErrorLog::errorsLog("403 -> Error updating patient with ID: {$id} - " . $e->getMessage());
         }
     }
 }

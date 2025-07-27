@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Core\AppLog;
 use Flight;
 use Exception;
 use Core\ErrorLog;
@@ -28,6 +29,7 @@ class PatientService extends ServiceProvider{
                 "relations"=>$data->relations,
                 "telephone"=>$data->telephone,
             ]);
+            AppLog::appLog("Contact created successfully for patient ID: " . $idPatient);
         }
         catch(Exception $e){
              ErrorLog::errorsLog($e->getMessage());
@@ -45,6 +47,7 @@ class PatientService extends ServiceProvider{
              ]);
 
             if (!$contact) {
+            ErrorLog::errorsLog("Contact not found for the given patient ID: {$idPatient}");    
             Flight::jsonHalt(
                 ['error' => 'Contact not found for the given patient ID'],
                  404);
@@ -59,6 +62,7 @@ class PatientService extends ServiceProvider{
                 "id"=>$idContact
             ]);
             $rowsOk = $rowsAffected->rowCount();
+            AppLog::appLog("Contact with ID: {$idContact} for patient ID: {$idPatient} updated successfully. Rows affected: {$rowsOk}");
             return $rowsOk > 0;
         } catch (Exception $e) {
              ErrorLog::errorsLog($e->getMessage());
@@ -77,6 +81,7 @@ class PatientService extends ServiceProvider{
                 "s_folley"=>$data->s_folley,
                 "cit"=>$data->cit,
             ]);
+            AppLog::appLog("Clinical details created successfully for patient ID: " . $idPatient);  
         }
         catch(Exception $e){
              ErrorLog::errorsLog($e->getMessage());
@@ -94,6 +99,7 @@ class PatientService extends ServiceProvider{
              ]);
 
             if (!$contact) {
+                ErrorLog::errorsLog("Contact not found for the given patient ID: {$idPatient}");
             Flight::jsonHalt(
                 ['error' => 'Contact not found for the given patient ID'],
                  404);
@@ -108,6 +114,7 @@ class PatientService extends ServiceProvider{
                 "id"=>$idContact
             ]);
             $rowsOk = $rowsAffected->rowCount();
+            AppLog::appLog("Contact with ID: {$idContact} for patient ID: {$idPatient} updated successfully. Rows affected: {$rowsOk}");
             return $rowsOk > 0;
         } catch (Exception $e) {
              ErrorLog::errorsLog($e->getMessage());
@@ -124,6 +131,7 @@ class PatientService extends ServiceProvider{
                 "observartions_global" => $data->observartions_global,
                 "id_user"=>$idUser
             ]);
+            AppLog::appLog("Report created successfully for patient ID: " . $idPatient);
         }catch(Exception $e){
                  ErrorLog::errorsLog($e->getMessage());
                 Flight::jsonHalt([
@@ -144,6 +152,7 @@ class PatientService extends ServiceProvider{
                 "temperature" => $data->temperature,
                 "eva_flacc"=>$data->eva_flacc
             ]);
+            AppLog::appLog("Vital signs created successfully for report ID: " . $idReport);
         }catch(Exception $e){
                 ErrorLog::errorsLog($e->getMessage());
                 Flight::jsonHalt([
@@ -159,6 +168,7 @@ class PatientService extends ServiceProvider{
                 "type_food" => $data->type_food,
                 "tolerance" => $data->tolerance
             ]);
+            AppLog::appLog("Intake control created successfully for report ID: " . $idReport);
         }catch(Exception $e){
                  ErrorLog::errorsLog($e->getMessage());
                 Flight::jsonHalt([
@@ -176,6 +186,7 @@ class PatientService extends ServiceProvider{
                 "deposition" => $data->deposition,
                 "others" => $data->others,
                     ]);
+                    AppLog::appLog("Expense control created successfully for report ID: " . $idReport);
         }catch(Exception $e){
                  ErrorLog::errorsLog($e->getMessage());
                 Flight::jsonHalt([
@@ -192,6 +203,7 @@ class PatientService extends ServiceProvider{
                 "observations" => $data->observations,
                 "frequency" => $data->frequency
                     ]);
+                    AppLog::appLog("Other instructions created successfully for report ID: " . $idReport);
         }catch(Exception $e){
                 ErrorLog::errorsLog($e->getMessage());
                 Flight::jsonHalt([
@@ -206,6 +218,7 @@ class PatientService extends ServiceProvider{
                 "id_daily_report"=> $idReport,
                 "observations" => $data->observations
                     ]);
+                    AppLog::appLog("Day evaluations created successfully for report ID: " . $idReport);
         }catch(Exception $e){
                 ErrorLog::errorsLog($e->getMessage());
                 Flight::jsonHalt([
@@ -220,6 +233,7 @@ class PatientService extends ServiceProvider{
                 "id_daily_report"=> $idReport,
                 "observations" => $data->observations
                     ]);
+                    AppLog::appLog("Night evaluations created successfully for report ID: " . $idReport);
         }catch(Exception $e){
                 ErrorLog::errorsLog($e->getMessage());
                 Flight::jsonHalt([
@@ -246,6 +260,7 @@ class PatientService extends ServiceProvider{
                 "night_evaluations" => $this->db->select($this->tableNightEvaluations, '*', ["id_daily_report" => $reportId])
             ];
             }
+            AppLog::appLog("Fetched all reports for patient ID: " . $idPatient);
             return [
                 "data" => $result,
                 "pagination" => $pagination['pagination']

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Role;
+use Core\AppLog;
 use Flight;
 
 class RoleController{
@@ -12,6 +13,7 @@ class RoleController{
         Flight::json([
             "data"=> $data
         ]);
+        AppLog::appLog("Data loaded all roles");
     }
     public static function store(){
         $type_role = Flight::request()->data->type_role;
@@ -21,7 +23,7 @@ class RoleController{
                 "message"=>"Role created successfully!!",
                 "id"=> $data
             ]);
-        
+        AppLog::appLog("Role created successfully with ID: {$data}");
     }
     public static function update($id){}
     public static function destroy($id){

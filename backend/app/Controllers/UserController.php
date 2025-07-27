@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\User;
 use App\Services\UserService;
+use Core\AppLog;
 use Core\ErrorLog;
 use Exception;
 use Flight;
@@ -20,6 +21,7 @@ class UserController{
         Flight::json([
             "data"=>$data
         ]);
+        AppLog::appLog("Data loaded all users");
     }
 
     public function show(int $id){
@@ -32,6 +34,7 @@ class UserController{
                 "message"=>"Data user with ID: {$id}",
                 "data"=>$data
             ]);
+            AppLog::appLog("Data loaded by ID: {$id}");
         }catch(Exception $e){
              ErrorLog::errorsLog("404 -> User not found or data is empty or id: {$id} not valid - " . $e->getMessage());
             Flight::jsonHalt([
@@ -50,6 +53,7 @@ class UserController{
         Flight::json([
             "token"=>$token,
         ]);
+        AppLog::appLog("User logged in with name: {$user}");
     }
     public function store(){
 
@@ -71,6 +75,7 @@ class UserController{
             "status"=>201,
             "data"=>$data
             ]);
+            AppLog::appLog("User created successfully with ID: {$data->id}");
         } catch (Exception $e) {
             ErrorLog::errorsLog("Unexpected error: " . $e->getMessage());
             Flight::jsonHalt([
@@ -89,6 +94,7 @@ class UserController{
                 "message"=>"Data updated by {$id}",
                 "data"=>$data
             ]);
+            AppLog::appLog("Data updated by ID: {$id}");
         }else{
              ErrorLog::errorsLog("409 -> Data update has not been carried out validate id for users with ID: {$id}");
             Flight::jsonHalt([
@@ -118,6 +124,7 @@ class UserController{
                 "validated"=>true,
                 "rol"=>$decode->rol
             ]);
+            AppLog::appLog("Token validated successfully for user: {$decode->rol}");
         } catch(Exception $e){
             ErrorLog::errorsLog("401 Token invalid!!: " . $e->getMessage());
             Flight::jsonHalt([

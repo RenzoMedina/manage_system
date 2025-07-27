@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Patient;
 use App\Services\PatientService;
-use Error;
+use Core\AppLog;
 use Flight;
 
 class PatientController{
@@ -15,6 +15,7 @@ class PatientController{
             "status"=>200,
             "data"=>(new Patient())->getAll()
         ]);
+        AppLog::appLog("Data loaded all patients");
     }
     public static function show($id){
         $data = (new Patient())->getById($id);
@@ -23,6 +24,7 @@ class PatientController{
             "message"=>"Data loaded by {$id}",
             "data"=>$data
         ]);
+        AppLog::appLog("Data loaded by {$id}");
     }
 
     public static function store(){
@@ -33,6 +35,7 @@ class PatientController{
             "message"=>"Data load succesfully!!!",
             "data"=>$data
         ]);
+        AppLog::appLog("Data load succesfully!!! for patient with ID: {$data['id']}");
     }  
     /**
      * ? update data of patient
@@ -47,12 +50,13 @@ class PatientController{
                 "message"=>"Data updated by {$id}",
                 "data"=>$data
             ]);
+            AppLog::appLog("Data updated by {$id}");
         }else{
             ErrorLog::errorsLog("409 -> Data update has not been carried out validate id for patient with ID: {$id}");
             Flight::jsonHalt([
                 "error"=>"Data update has not been carried out validate id"
             ], 409);
-        } 
+        }
     }
 /*     public static function destroy($di){
 
@@ -70,6 +74,7 @@ class PatientController{
             "data"=>$data,
             "id"=>$idPatient
         ]);
+        AppLog::appLog("Data load succesfully!!! for patient with ID: {$idPatient}");
     }
     public static function updateContact($idPatient, $idContact){
         $data = Flight::request()->data;
@@ -80,6 +85,7 @@ class PatientController{
                 "message"=>"Data updated by {$idContact}",
                 "data"=>$data
             ]);
+            AppLog::appLog("Data updated by {$idContact} for patient with ID: {$idPatient}");
         }else{
             ErrorLog::errorsLog("409 -> Data update has not been carried out validate id for contact with ID: {$idContact} of patient with ID: {$idPatient}");
             Flight::jsonHalt([
@@ -97,6 +103,7 @@ class PatientController{
             "data"=>$data,
             "id"=>$idPatient
         ]);
+        AppLog::appLog("Data load succesfully!!! for patient with ID: {$idPatient}");
     }
 
     public static function updateDetailClinical($idPatient, $idContact){
@@ -108,6 +115,7 @@ class PatientController{
                 "message"=>"Data updated by {$idContact}",
                 "data"=>$data
             ]);
+            AppLog::appLog("Data updated by {$idContact} for patient with ID: {$idPatient}");
         }else{
             ErrorLog::errorsLog("409 -> Data update has not been carried out validate id for contact with ID: {$idContact} of patient with ID: {$idPatient}");
             Flight::jsonHalt([
@@ -126,6 +134,7 @@ class PatientController{
             "id_patient"=>$idPatient,
             "id_user"=>$idUser
         ]);
+        AppLog::appLog("Report create succesfully!!! for patient with ID: {$idPatient} and user ID: {$idUser}");
     }
     public function vitalSigns(int $idPatient, int $idReport){
         $data = Flight::request()->data;
@@ -137,6 +146,7 @@ class PatientController{
             "id_daily_report"=>$idReport,
             "id_patient"=>$idPatient
         ]);
+        AppLog::appLog("Report Vital Signs create succesfully!!! for patient with ID: {$idPatient} and report ID: {$idReport}");
     }
     public function intakeControl(int $idPatient, int $idReport){
         $data = Flight::request()->data;
@@ -148,6 +158,7 @@ class PatientController{
             "id_daily_report"=>$idReport,
             "id_patient"=>$idPatient
         ]);
+        AppLog::appLog("Report Intake create succesfully!!! for patient with ID: {$idPatient} and report ID: {$idReport}");
     }
     public function expenseControl(int $idPatient, int $idReport){
          $data = Flight::request()->data;
@@ -159,6 +170,7 @@ class PatientController{
             "id_daily_report"=>$idReport,
             "id_patient"=>$idPatient
         ]);
+        AppLog::appLog("Report Expense create succesfully!!! for patient with ID: {$idPatient} and report ID: {$idReport}");
     }
 
      public function othersInstructions(int $idPatient, int $idReport){
@@ -183,6 +195,7 @@ class PatientController{
             "id_daily_report"=>$idReport,
             "id_patient"=>$idPatient
         ]);
+        AppLog::appLog("Report Day evaluations create succesfully!!! for patient with ID: {$idPatient} and report ID: {$idReport}");
     }
 
     public function nightEvaluations(int $idPatient, int $idReport){
@@ -195,6 +208,7 @@ class PatientController{
             "id_daily_report"=>$idReport,
             "id_patient"=>$idPatient
         ]);
+        AppLog::appLog("Report Night evaluations create succesfully!!! for patient with ID: {$idPatient} and report ID: {$idReport}");
     }
 
     public function getReportById(int $idPatient){
@@ -204,5 +218,6 @@ class PatientController{
             "message"=>"Data report by id Patient {$idPatient}",
             "content"=>$data
         ]);
+        AppLog::appLog("Data report by id Patient {$idPatient}");
     }
 }

@@ -68,11 +68,11 @@ Flight::group("/api", function(){
  * ? route not found or 404
  */
 Flight::map('notFound', function(){
+    ErrorLog::errorsLog("404 - Not Found");
     Flight::json([
         "status"=>404,
         "message"=>"Not Found"
     ]);
-    ErrorLog::errorsLog("404 - Not Found");
 });
 
 /**

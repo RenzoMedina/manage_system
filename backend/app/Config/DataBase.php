@@ -1,6 +1,7 @@
 <?php 
 
 namespace App\Config;
+use Core\AppLog;
 use Exception;
 use Flight;
 use Medoo\Medoo;
@@ -18,6 +19,7 @@ try {
         ]);
     //set Flight db to Medoo
     Flight::set('db',$database);
+    AppLog::appLog("Database connection established successfully.");
 
 } catch (Exception $e) {
     Flight::halt(500, json_encode([
