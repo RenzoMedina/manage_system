@@ -48,10 +48,10 @@ class PatientController{
                 "data"=>$data
             ]);
         }else{
+            ErrorLog::errorsLog("409 -> Data update has not been carried out validate id for patient with ID: {$id}");
             Flight::jsonHalt([
                 "error"=>"Data update has not been carried out validate id"
             ], 409);
-            ErrorLog::errorsLog("409 -> Data update has not been carried out validate id for patient with ID: {$id}");
         } 
     }
 /*     public static function destroy($di){
@@ -81,10 +81,10 @@ class PatientController{
                 "data"=>$data
             ]);
         }else{
+            ErrorLog::errorsLog("409 -> Data update has not been carried out validate id for contact with ID: {$idContact} of patient with ID: {$idPatient}");
             Flight::jsonHalt([
                 "error"=>"Data update has not been carried out validate id"
             ], 409);
-            ErrorLog::errorsLog("409 -> Data update has not been carried out validate id for contact with ID: {$idContact} of patient with ID: {$idPatient}");
         } 
     }
 
@@ -109,10 +109,92 @@ class PatientController{
                 "data"=>$data
             ]);
         }else{
+            ErrorLog::errorsLog("409 -> Data update has not been carried out validate id for contact with ID: {$idContact} of patient with ID: {$idPatient}");
             Flight::jsonHalt([
                 "error"=>"Data update has not been carried out validate id"
             ], 409);
-            ErrorLog::errorsLog("409 -> Data update has not been carried out validate id for contact with ID: {$idContact} of patient with ID: {$idPatient}");
         } 
     }
+
+    public function reportDaily(int $idPatient, int $idUser){
+        $data = Flight::request()->data;
+       (new PatientService())->createReport($idPatient,$idUser,$data);
+        Flight::json([
+            "status"=>201,
+            "message"=>"Report create succesfully!!!",
+            "data"=>$data,
+            "id_patient"=>$idPatient,
+            "id_user"=>$idUser
+        ]);
+    }
+    public function vitalSigns(int $idPatient, int $idReport){
+        $data = Flight::request()->data;
+        (new PatientService())->createVitalSigns($idReport,$data);
+        Flight::json([
+            "status"=>201,
+            "message"=>"Report Vital Signs create succesfully!!!",
+            "data"=>$data,
+            "id_daily_report"=>$idReport,
+            "id_patient"=>$idPatient
+        ]);
+    }
+    public function intakeControl(int $idPatient, int $idReport){
+        $data = Flight::request()->data;
+        (new PatientService())->createIntakeControl($idReport,$data);
+        Flight::json([
+            "status"=>201,
+            "message"=>"Report Intake create succesfully!!!",
+            "data"=>$data,
+            "id_daily_report"=>$idReport,
+            "id_patient"=>$idPatient
+        ]);
+    }
+    public function expenseControl(int $idPatient, int $idReport){
+         $data = Flight::request()->data;
+        (new PatientService())->createExpenseControl($idReport,$data);
+        Flight::json([
+            "status"=>201,
+            "message"=>"Report Expense create succesfully!!!",
+            "data"=>$data,
+            "id_daily_report"=>$idReport,
+            "id_patient"=>$idPatient
+        ]);
+    }
+
+     public function othersInstructions(int $idPatient, int $idReport){
+         $data = Flight::request()->data;
+        (new PatientService())->createOtherInstructions($idReport,$data);
+        Flight::json([
+            "status"=>201,
+            "message"=>"Report Others Instructions create succesfully!!!",
+            "data"=>$data,
+            "id_daily_report"=>$idReport,
+            "id_patient"=>$idPatient
+        ]);
+    }
+
+    public function dayEvaluations(int $idPatient, int $idReport){
+         $data = Flight::request()->data;
+        (new PatientService())->createDayEvalutions($idReport,$data);
+        Flight::json([
+            "status"=>201,
+            "message"=>"Report Day evaluations create succesfully!!!",
+            "data"=>$data,
+            "id_daily_report"=>$idReport,
+            "id_patient"=>$idPatient
+        ]);
+    }
+
+        public function nightEvaluations(int $idPatient, int $idReport){
+         $data = Flight::request()->data;
+        (new PatientService())->createNightEvalutions($idReport,$data);
+        Flight::json([
+            "status"=>201,
+            "message"=>"Report Day evaluations create succesfully!!!",
+            "data"=>$data,
+            "id_daily_report"=>$idReport,
+            "id_patient"=>$idPatient
+        ]);
+    }
+
 }

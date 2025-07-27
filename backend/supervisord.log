@@ -171,3 +171,23 @@
 2025-07-25 03:28:38,116 INFO waiting for nginx, php-fpm to die
 2025-07-25 03:28:38,124 INFO stopped: php-fpm (exit status 0)
 2025-07-25 03:28:38,175 INFO stopped: nginx (exit status 0)
+2025-07-26 02:23:12,676 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-07-26 02:23:12,684 INFO supervisord started with pid 1
+2025-07-26 02:23:13,699 INFO spawned: 'nginx' with pid 7
+2025-07-26 02:23:13,706 INFO spawned: 'php-fpm' with pid 8
+2025-07-26 02:23:14,843 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-26 02:23:14,843 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-26 03:00:20,020 WARN received SIGQUIT indicating exit request
+2025-07-26 03:00:20,041 INFO waiting for nginx, php-fpm to die
+2025-07-26 03:00:21,100 INFO stopped: php-fpm (exit status 0)
+2025-07-26 03:00:21,168 INFO stopped: nginx (exit status 0)
+2025-07-27 18:23:50,534 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-07-27 18:23:50,538 INFO supervisord started with pid 1
+2025-07-27 18:23:51,543 INFO spawned: 'nginx' with pid 7
+2025-07-27 18:23:51,546 INFO spawned: 'php-fpm' with pid 8
+2025-07-27 18:23:52,632 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-27 18:23:52,632 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-07-27 19:52:39,882 WARN received SIGQUIT indicating exit request
+2025-07-27 19:52:39,907 INFO waiting for nginx, php-fpm to die
+2025-07-27 19:52:39,947 INFO stopped: php-fpm (exit status 0)
+2025-07-27 19:52:40,024 INFO stopped: nginx (exit status 0)
