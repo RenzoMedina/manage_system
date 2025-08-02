@@ -25,9 +25,9 @@ COPY supervisord.conf /etc/supervisord.conf
 
 WORKDIR /var/www/api
 
-RUN mkdir -p backend/core/logs && \
-    chown -R www-data:www-data backend/core/logs && \
-    chmod -R 775 backend/core/logs
+RUN mkdir -p core/logs && \
+    chown -R www-data:www-data core/logs && \
+    chmod -R 777 core/logs
 
 RUN composer install --no-dev --optimize-autoloader
 
