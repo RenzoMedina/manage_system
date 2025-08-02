@@ -2,10 +2,11 @@
 
 namespace App\Controllers;
 
+use Flight;
+use Core\AppLog;
+use Core\ErrorLog;
 use App\Models\Patient;
 use App\Services\PatientService;
-use Core\AppLog;
-use Flight;
 
 class PatientController{
     
