@@ -5,6 +5,11 @@ on:
       - releases/**
     paths:
       - 'backend/**'
+  pull_request:
+    branches:
+      - releases/**
+    paths:
+      - 'backend/**'
 jobs:
   deploy:
     runs-on: ubuntu-latest
