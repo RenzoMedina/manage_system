@@ -2,12 +2,12 @@ name: Docker Deployment
 on:
   push:
     branches:
-      - deploy/**
+      - deploy/*
     paths:
       - 'backend/**'
   pull_request:
     branches:
-      - deploy/**
+      - deploy/*
     paths:
       - 'backend/**'
 jobs:
