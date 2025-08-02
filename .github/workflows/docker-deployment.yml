@@ -2,9 +2,9 @@ name: Docker Deployment
 on:
     push:
         branches:
-            - releases/**
+          - releases/**
         paths:
-            - 'backend/**'
+          - 'backend/**'
 jobs:
   deploy:
     runs-on: ubuntu-latest
