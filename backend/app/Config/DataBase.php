@@ -10,11 +10,11 @@ use Medoo\Medoo;
  */
 try {
     $database = new Medoo([
-        'type'=>$_ENV['DBTYPE'],
-        'host'=>$_ENV['DBHOST'],
-        'database' => $_ENV['DBNAME'],
-        'username' => $_ENV['DBUSER'],
-        'password' => $_ENV['DBPASS'],
+        'type'=>getenv('DBTYPE') ?: $_ENV['DBTYPE'],
+        'host'=>getenv('DBHOST') ?: $_ENV['DBHOST'],
+        'database' => getenv('DBNAME') ?: $_ENV['DBNAME'],
+        'username' => getenv('DBUSER') ?: $_ENV['DBUSER'],
+        'password' => getenv('DBPASS') ?: $_ENV['DBPASS'],
         'error'=>\PDO::ERRMODE_EXCEPTION
         ]);
     //set Flight db to Medoo
