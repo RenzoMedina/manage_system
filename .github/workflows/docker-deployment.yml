@@ -3,13 +3,6 @@ on:
   push:
     branches:
       - deploy/*
-    paths:
-      - 'backend/**'
-  pull_request:
-    branches:
-      - deploy/*
-    paths:
-      - 'backend/**'
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -34,4 +27,3 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/sysadmin-back:1.0.${{ github.run_number }}
 
-          
