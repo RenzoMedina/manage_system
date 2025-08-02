@@ -1,6 +1,11 @@
 <?php
 require_once 'vendor/autoload.php';
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$envPath = '/etc/secrets/.env';
+if (!file_exists($envPath)) {
+    $envPath = __DIR__ . '/.env';
+}
+$dotenv = Dotenv\Dotenv::createImmutable(dirname($envPath), basename($envPath));
 $dotenv->load();
+
 require_once 'app/Config/DataBase.php';
 require_once 'routes/Api.php';

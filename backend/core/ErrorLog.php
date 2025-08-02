@@ -9,7 +9,7 @@ class ErrorLog{
         if (!is_dir(self::$path)) {
             mkdir(self::$path, 0777, true);
         }
-        $filePaht = self::$path . '/errors.log';
+        $filePaht = self::$path . 'errors.log';
         $file = fopen($filePaht, "a");
         if($file){
             $time = date("Y-m-d H:i:s");

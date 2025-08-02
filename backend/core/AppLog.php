@@ -9,7 +9,7 @@ class AppLog{
         if (!is_dir(self::$path)) {
             mkdir(self::$path, 0777, true);
         }
-        $filePaht = self::$path . '/api.log';
+        $filePaht = self::$path . 'api.log';
         $file = fopen($filePaht, "a");
         if($file){
             $time = date("Y-m-d H:i:s");

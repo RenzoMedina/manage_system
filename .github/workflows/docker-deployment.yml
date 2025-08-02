@@ -3,13 +3,6 @@ on:
   push:
     branches:
       - deploy/*
-    paths:
-      - 'backend/**'
-  pull_request:
-    branches:
-      - deploy/*
-    paths:
-      - 'backend/**'
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -29,7 +22,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./backend
+          file: ./backend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/sysadmin-back:1.0.${{ github.run_number }}
+
