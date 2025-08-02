@@ -2,7 +2,7 @@ name: Docker Deployment
 on:
     push:
         branches:
-            - relase/**
+            - releases/**
         paths:
             - 'backend/**'
 jobs:
@@ -27,4 +27,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/sysadmin-back:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/sysadmin-back:1.0.${{ github.run_number }}
